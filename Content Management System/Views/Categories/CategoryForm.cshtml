@@ -1,0 +1,99 @@
+﻿@model Content_Management_System.ViewModels.CategoryFormViewModel
+@{
+    ViewBag.Title = "CategoryForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Create
+            <small>Item</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- form start -->
+
+                    @using (Html.BeginForm("Save", "Categories"))
+                    {
+                        <div class="box-body">
+                            @for (int i = 0; i < Model.NewCategoryNames.Count; i++)
+                            {
+                            <div class="form-group">
+                                @Html.Label("Name(" + Model.Languages.ElementAt(i).Name + ")")
+                                @Html.TextBoxFor(ncn => ncn.NewCategoryNames[i].Name, new { @class = "form-control", placeholder = "Enter..." })
+                                @Html.HiddenFor(ncn => ncn.NewCategoryNames[i].LanguageId)
+                            </div>
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(c => c.Category.ParentCategoryId)
+                                @Html.DropDownListFor(c => c.Category.ParentCategoryId, new SelectList(Model.CategoryNames, "CategoryId", "Name"), "Select Category Parent..", new { @class = "form-control select2" })
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    @Html.CheckBoxFor(c => c.Category.IsActive, new { @class = "minimal"}) Is Active
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.HiddenFor(c => c.Category.Id)
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    }
+                </div>
+                <!-- /.box -->
+            </div>
+            <!--/.col (left) -->
+            <!-- right column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- form start -->
+
+                    @using (Html.BeginForm("Save", "Categories"))
+                    {
+                        <div class="box-body">
+                            @for (int i = 0; i < Model.NewCategoryNames.Count; i++)
+                            {
+                                <div class="form-group">
+                                    @Html.Label("Name(" + Model.Languages.ElementAt(i).Name + ")")
+                                    @Html.TextBoxFor(ncn => ncn.NewCategoryNames[i].Name, new { @class = "form-control", placeholder = "Enter..." })
+                                    @Html.HiddenFor(ncn => ncn.NewCategoryNames[i].LanguageId)
+                                </div>
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(c => c.Category.ParentCategoryId)
+                                @Html.DropDownListFor(c => c.Category.ParentCategoryId, new SelectList(Model.CategoryNames, "CategoryId", "Name"), "Select Category Parent..", new { @class = "form-control select2" })
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    @Html.CheckBoxFor(c => c.Category.IsActive, new { @class = "minimal" }) Is Active
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.HiddenFor(c => c.Category.Id)
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    }
+                </div>
+                <!-- /.box -->
+            </div>
+            <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

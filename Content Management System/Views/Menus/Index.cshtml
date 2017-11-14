@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Content_Management_System.Models.MenuName>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Menus
+            <small>All Items</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">@Html.ActionLink("Create New Item", "Save", "Menus", new { @class = "btn btn-primary" })</h3>
+                    </div>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Is Active</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var menuItem in Model)
+                                {
+                                    <tr>
+                                        <td>@menuItem.Name</td>
+                                        <td>@menuItem.Menu.Type</td>
+                                        <td>@menuItem.Menu.IsActive</td>
+                                        <td>@Html.ActionLink("Edit", "Edit", "Menus", new { id = menuItem.MenuId }, "")</td>
+                                        <td>@Html.ActionLink("Delete", "Delete", "Menus", new { id = menuItem.MenuId }, "")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Is Active</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>

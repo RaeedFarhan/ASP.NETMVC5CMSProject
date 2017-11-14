@@ -1,0 +1,74 @@
+﻿@model Content_Management_System.ViewModels.MenuFormViewModel
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Create
+            <small>Item</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- form start -->
+
+                    @using (Html.BeginForm("Save", "Menus"))
+                    {
+                        <div class="box-body">
+                            @for (int i = 0; i < Model.NewMenuNames.Count; i++)
+                            {
+                            <div class="form-group">
+                                @Html.Label("Name(" + Model.Languages.ElementAt(i).Name + ")")
+                                @Html.TextBoxFor(nmn => nmn.NewMenuNames[i].Name, new { @class = "form-control", placeholder = "Enter..." })
+                                @Html.HiddenFor(nmn => nmn.NewMenuNames[i].LanguageId)
+                            </div>
+                            }
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Menu.ParentMenuId)
+                                @Html.DropDownListFor(m => m.Menu.ParentMenuId, new SelectList(Model.MenuNames, "MenuId", "Name"), "Select Menu Parent..", new { @class = "form-control select2" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Menu.Type)
+                                <select class="form-control select2" id="Menu_ParentMenuId" name="Menu.ParentMenuId">
+                                    <option value="">Select Menu Type..</option>
+                                    <option value="1">Item</option>
+                                    <option value="2">Dropdown</option>
+                                    <option value="3">List of Items</option>
+                                    <option value="4">Cateogry</option>
+                                </select>
+                                @*@Html.TextBoxFor(m => m.Menu.Type, new { @class = "form-control", placeholder = "Enter..." })*@
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    @Html.CheckBoxFor(m => m.Menu.IsActive, new { @class = "minimal" }) Is Active
+                                </label>
+                            </div>
+                            
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.HiddenFor(m => m.Menu.Id)
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    }
+                </div>
+                <!-- /.box -->
+            </div>
+            <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

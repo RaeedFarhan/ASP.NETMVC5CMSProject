@@ -1,0 +1,68 @@
+﻿@model Content_Management_System.ViewModels.CategoryFieldFormViewModel
+@{
+    ViewBag.Title = "CategoryFieldForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Create
+            <small>Item</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- form start -->
+
+                    @using (Html.BeginForm("Save", "CategoryFields"))
+                    {
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(cf => cf.CategoryField.CategoryId)
+                                @Html.DropDownListFor(cf => cf.CategoryField.CategoryId, new SelectList(Model.CategoryNames, "CategoryId", "Name"), "Select Category..", new { @class = "form-control select2" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(cf => cf.CategoryField.Name)
+                                @Html.TextBoxFor(cf => cf.CategoryField.Name, new { @class = "form-control", placeholder = "Enter..." })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(cf => cf.CategoryField.Type)
+                                @Html.TextBoxFor(cf => cf.CategoryField.Type, new { @class = "form-control", placeholder = "Enter..." })
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    @Html.CheckBoxFor(cf => cf.CategoryField.Requierd, new { @class = "minimal" }) Is Required
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    @Html.CheckBoxFor(cf => cf.CategoryField.IsActive, new { @class = "minimal" }) Is Active
+                                </label>
+                            </div>
+                            
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.HiddenFor(cf => cf.CategoryField.Id)
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    }
+                </div>
+                <!-- /.box -->
+            </div>
+            <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->

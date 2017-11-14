@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Content_Management_System.Models.Language>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Languages
+            <small>All Items</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">@Html.ActionLink("Create New Item", "Save", "languages", new { @class = "btn btn-primary" })</h3>
+                    </div>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Is Active</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var langItem in Model)
+                                {
+                                    <tr>
+                                        <td>@langItem.Name</td>
+                                        <td>@langItem.IsActive</td>
+                                        <td>@Html.ActionLink("Edit", "Edit", "Languages", new { id = langItem.Id }, "")</td>
+                                        <td>@Html.ActionLink("Delete", "Delete", "Languages", new { id = langItem.Id }, "")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Is Active</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>

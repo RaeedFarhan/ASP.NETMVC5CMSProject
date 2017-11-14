@@ -1,0 +1,139 @@
+﻿@model Content_Management_System.ViewModels.MenuFormViewModel
+
+@helper DropDown(int parentId)
+{
+foreach (var item in Model.MenuNames)
+{
+    if (item.Menu.ParentMenuId == parentId)
+    {
+        switch (item.Menu.Type)
+        {
+            case 1:
+                    <li class="nav-item">
+                        @Html.ActionLink(item.Name, "SingleItem", "Items", new { id = item.MenuId }, new { @class = "nav-link" })
+                    </li>
+                    break;
+                case 2:
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            @item.Name<span class="sr-only">(current)</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            @DropDown(item.Menu.Id)
+                        </ul>
+                    </li>
+                    break;
+                case 3:
+                    <li class="nav-item">
+                        @Html.ActionLink(item.Name, "MuliItem", "Items", new { id = item.MenuId }, new { @class = "nav-link" })
+                    </li>
+                    break;
+                case 4:
+                    <li class="nav-item">
+                        @Html.ActionLink(item.Name, "SingleCategory", "Categories", new { id = item.MenuId }, new { @class = "nav-link" })
+                    </li>
+                break;
+            default:
+                break;
+        }
+    }
+}
+}
+<nav class="navbar mega navbar-dark bg-dark hidden-lg-down">
+    <div class="container">
+        <ul class="nav navbar-nav">
+
+            @foreach (var item in Model.MenuNames)
+            {
+                if (item.Menu.ParentMenuId == 0 || item.Menu.ParentMenuId == null)
+                {
+                    switch (item.Menu.Type)
+                    {
+                        case 1:
+                            <li class="nav-item">
+                                @Html.ActionLink(item.Name, "SingleItem", "Items", new { id = item.MenuId }, new { @class = "nav-link" })
+                            </li>
+                            break;
+                        case 2:
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    @item.Name<span class="sr-only">(current)</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    @foreach (var itemDrop in Model.MenuNames)
+                                    {
+                                        if (itemDrop.Menu.ParentMenuId == item.MenuId)
+                                        {
+                                            switch (itemDrop.Menu.Type)
+                                            {
+                                                case 1:
+                                                    <li class="dropdown-item">
+                                                        @Html.ActionLink(itemDrop.Name, "SingleItem", "Items", new { id = itemDrop.MenuId }, new { tabindex = "-1" })
+                                                    </li>
+                                                    break;
+                                                case 2:
+                                                    <li class="dropdown-item dropdown">
+                                                        <a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                                            @itemDrop.Name<span class="sr-only">(current)</span>
+                                                        </a>
+                                                        <ul class="dropdown-menu">
+                                                            @DropDown(itemDrop.Menu.Id)
+                                                        </ul>
+                                                    </li>
+                                                    break;
+                                                case 3:
+                                                    <li class="dropdown-item">
+                                                        @Html.ActionLink(itemDrop.Name, "MuliItem", "Items", new { id = itemDrop.MenuId }, new { tabindex = "-1" })
+                                                    </li>
+                                                    break;
+                                                case 4:
+                                                    <li class="dropdown-item">
+                                                        @Html.ActionLink(item.Name, "SingleCategory", "Categories", new { id = itemDrop.MenuId }, new { tabindex = "-1" })
+                                                    </li>
+                                                    break;
+                                                default:
+                                                    break;
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                            break;
+                        case 3:
+                            <li class="nav-item">
+                                @Html.ActionLink(item.Name, "MuliItem", "Items", new { id = item.MenuId }, new { @class = "nav-link" })
+                            </li>
+                            break;
+                        case 4:
+                            <li class="nav-item">
+                                @Html.ActionLink(item.Name, "SingleCategory", "Categories", new { id = item.MenuId }, new { @class = "nav-link" })
+                            </li>
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            @*<li class="nav-item dropdown">
+                    <a class="nav-link" href="~/Transport/classic-blog.html">BLOG</a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a tabindex="-1" href="~/Transport/blog-grid-style-1.html"> BLOG STYLE 1 </a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a tabindex="-1" href="~/Transport/blog-grid-style-2.html"> BLOG STYLE 2 </a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a tabindex="-1" href="~/Transport/blog-magazine-style.html"> BLOG MAGAZINE STYLE </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="~/Transport/contact.html">CONTACT US</a>
+                </li>*@
+
+        </ul>
+    </div>
+</nav>

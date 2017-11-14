@@ -1,0 +1,63 @@
+﻿@model Content_Management_System.ViewModels.ItemFieldFormViewModel
+@{
+    ViewBag.Title = "ItemFieldForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Create
+            <small>Item</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- form start -->
+
+                    @using (Html.BeginForm("Save", "ItemFields"))
+                    {
+                        <div class="box-body">
+                            <div class="form-group">
+                                @Html.LabelFor(ifs => ifs.ItemField.ItemId)
+                                @Html.DropDownListFor(ifs => ifs.ItemField.ItemId, new SelectList(Model.Items, "Id", "Title"), "Select Item..", new { @class = "form-control select2" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(ifs => ifs.ItemField.Name)
+                                @Html.TextBoxFor(ifs => ifs.ItemField.Name, new { @class = "form-control", placeholder = "Enter..." })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(ifs => ifs.ItemField.Type)
+                                @Html.TextBoxFor(ifs => ifs.ItemField.Type, new { @class = "form-control", placeholder = "Enter..." })
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    @Html.CheckBoxFor(ifs => ifs.ItemField.IsActive, new { @class = "minimal" })Is Active
+                                </label>
+                            </div>
+
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            @Html.HiddenFor(ifs => ifs.ItemField.Id)
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    }
+                </div>
+                <!-- /.box -->
+            </div>
+            <!--/.col (left) -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
